@@ -1,0 +1,49 @@
+dayPickerStyles.css
+.day-picker {
+  font-family: 'Arial', sans-serif;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.day-picker .rdp-day {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+.day-picker .rdp-day:hover {
+  background-color: #e0e0e0;
+}
+
+.day-picker .rdp-day_selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.day-picker .rdp-day_disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* or another height that suits your layout */
+}
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adjust spacing between elements */
+}
+
+.custom-calendar-class {
+  display: block; /* or another display property as needed */
+  /* Additional styles to customize appearance */
+}

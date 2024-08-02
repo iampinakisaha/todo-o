@@ -6,6 +6,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from 'cloudinary';
 import cloudinaryRoutes from "./routes/CloudinaryRoutes.js";
+import subTodoRoutes from "./routes/SubTodoRoutes.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -27,6 +28,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/cloudinary", cloudinaryRoutes);
+app.use("/api/sub-todo", subTodoRoutes);
 
 dbConnect().then(() => {
   console.log("Connected to Database.");

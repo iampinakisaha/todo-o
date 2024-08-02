@@ -1,3 +1,4 @@
+import CustomDatePicker from "@/lib/datePicker";
 import Auth from "@/pages/Auth";
 import Home from "@/pages/Home";
 import Profile from "@/pages/Profile";
@@ -52,7 +53,8 @@ export const router = createBrowserRouter(
           </PrivateRoute>
         }
       ></Route>
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="/test" element={<CustomDatePicker/>} />
+      <Route path="*" element={<Navigate to="/auth" />} />
     </>
     
   )

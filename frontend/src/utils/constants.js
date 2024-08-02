@@ -13,3 +13,9 @@ export const UPDATE_USER_PROFILE_IMAGE_ROUTE = `${AUTH_ROUTES}/update-user-profi
 export const CLOUDINARY_ROUTES = "api/cloudinary";
 export const UPLOAD_IMAGE_CLOUDINARY = `${CLOUDINARY_ROUTES}/upload-image-cloudinary`;
 export const DELETE_IMAGE_CLOUDINARY = `${CLOUDINARY_ROUTES}/delete-image-cloudinary`;
+
+
+
+// subtodo
+export const SUBTODO_ROUTES = "api/sub-todo";
+export const ADD_SUBTODO_ROUTE = `${SUBTODO_ROUTES}/add-sub-todo` ;
