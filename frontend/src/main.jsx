@@ -10,11 +10,11 @@ import apiClient from "./lib/apiClient.js";
 import { GET_USER_INFO } from "./utils/constants.js";
 
 function Main () {
-  const { userinfo, setUserInfo } = useAppStore();
+  const { userInfo, setUserInfo } = useAppStore();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!userinfo) {
+    if (!userInfo) {
       setLoading(true);
       const getUserInfo = async () => {
         try {
@@ -37,7 +37,7 @@ function Main () {
     } else {
       setLoading(false);
     }
-  }, [userinfo, setUserInfo]);
+  }, [userInfo, setUserInfo]);
 
   if (loading) {
     return <div>Loading...</div>

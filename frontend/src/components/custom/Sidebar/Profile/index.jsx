@@ -58,8 +58,9 @@ const SidebarProfile = () => {
             <div
               ref={menuRef}
               className={`flex justify-between transition-all hover:bg-[#F5E8E8] duration-300 items-center gap-1 mx-1  p-1 rounded ${
-                isClickedProfile ? "bg-slate-200" : ""
-              }`}
+                isClickedProfile ? "bg-[#C5001A]/10 shadow-md focus:border-none" : "" 
+              } `}
+              
             >
               {/* avatar start */}
               <div className="flex justify-between items-center">

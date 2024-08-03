@@ -19,3 +19,4 @@ export const DELETE_IMAGE_CLOUDINARY = `${CLOUDINARY_ROUTES}/delete-image-cloudi
 // subtodo
 export const SUBTODO_ROUTES = "api/sub-todo";
 export const ADD_SUBTODO_ROUTE = `${SUBTODO_ROUTES}/add-sub-todo` ;
+export const GET_SUBTODO_ROUTE = `${SUBTODO_ROUTES}/get-sub-todo` ;

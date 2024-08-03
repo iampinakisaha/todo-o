@@ -2,7 +2,7 @@ import Dashboard from "@/components/custom/Dashboard";
 import Sidebar from "@/components/custom/Sidebar";
 import useAppStore from "@/store";
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Todo = () => {
@@ -30,7 +30,7 @@ const Todo = () => {
     </div>
   
     <div
-      className={`min-h-screen flex-grow transition-transform duration-&lsqb;3000ms&rsqb ease-in-out ${
+      className={`min-h-screen flex-grow transition-transform duration-300  ease-in-out ${
         isActiveTodoSidebar ? "md:ml-72" : "ml-0"
       }`}
       style={{
@@ -38,7 +38,7 @@ const Todo = () => {
         transition: 'margin-left 0.3s ease-in-out', // Adjust transition time
       }}
     >
-      <Dashboard />
+      <Outlet />
     </div>
   </div>
   

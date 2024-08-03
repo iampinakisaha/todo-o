@@ -76,14 +76,14 @@ const SidebarAddTask = () => {
   const [color, setColor] = useState("");
   const [taskLabel, setTaskLabel] = useState("");
   const [openAddTask, setOpenAddTask] = useState(false);
-
-  const { subTodo, setSubTodo } = useAppStore();
+  const {selectedFunction, setSelectedFunction} = useAppStore();
+  const { subTodo, setSubTodo, addSubTodo } = useAppStore();
 
   const [openInbox, setOpenInbox] = useState(false);
   const dropdownRef = useRef(null);
   const commandRef = useRef(null);
 
-  console.log("sub todo", subTodo);
+
 
   const handleDueDateChange = (date) => {
     setDueDate(date);
@@ -114,9 +114,9 @@ const SidebarAddTask = () => {
         const response = await apiClient.post(ADD_SUBTODO_ROUTE, todoData, {
           withCredentials: true,
         });
-
+        console.log("added task",response.data)
         if (response.status === 201 && response.data) {
-          setSubTodo(response.data);
+          addSubTodo(response.data);
           setOpenAddTask(false);
           toast.success("Todo added successfully.");
         } else {
@@ -151,14 +151,15 @@ const SidebarAddTask = () => {
   }, []);
 
   return (
-    <div className="relative h-full w-full ">
+    <div className="relative h-full w-full">
       <TooltipProvider>
         <Tooltip>
           <div className="h-full w-full ">
             <TooltipTrigger className="relative    h-full  w-full ">
               <div
-                onClick={() => setOpenAddTask(!openAddTask)}
-                className="flex justify-start items-center gap-2 mx-2 px-2 h-full active:scale-95 transition-all duration-200 hover:bg-[#F5E8E8] rounded-md cursor-pointer"
+                onClick={() => {setOpenAddTask(!openAddTask); setSelectedFunction("add-todo")}}
+                // className="flex justify-start items-center gap-2 mx-3 px-2 h-full active:scale-95 transition-all duration-200 hover:bg-slate-200/50 rounded-md hover:shadow-md cursor-pointer "
+                className={`flex justify-start items-center gap-2 mx-3 px-2 h-full cursor-pointer ${selectedFunction === "add-todo" ? "bg-[#C5001A]/10 shadow-md text-red-400 rounded-md" : "text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50"}`}
               >
                 <div className="bg-[#C5001A]/90 rounded-full p-[2px]">
                   <FaPlus className="text-white" />

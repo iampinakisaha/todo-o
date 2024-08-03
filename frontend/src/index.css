@@ -77,15 +77,3 @@ body {
   display: none !important;;
 }
 
-/* Hide the dropdown icon */
-.custom-select-trigger .shadcn-select-trigger-icon {
-  display: none;
-}
-
-.custom-select-trigger {
-  transition: background-color 0.3s ease;
-}
-
-.custom-select-trigger:hover {
-  background-color: rgba(203, 213, 225, 0.5); /* Adjust this color as needed */
-}
