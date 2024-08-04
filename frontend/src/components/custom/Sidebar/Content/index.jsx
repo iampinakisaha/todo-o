@@ -17,7 +17,7 @@ const SidebarContent = () => {
   const {selectedFunction, setSelectedFunction} = useAppStore();
   const {userInfo, setGetSubTodo} = useAppStore();
 
- console.log("userInfo", userInfo)
+ 
   return (
     <div className="flex flex-col h-full w-full mt-1">
       <div className="py-1 px-3  h-96 ">

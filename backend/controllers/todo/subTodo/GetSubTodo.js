@@ -10,7 +10,14 @@ const getSubTodoController = async (req, res, next) => {
       return res.status(401).send("User is unauthorised to access the data.");
     }
 
-    const todos = await SubTodo.find({createdBy: user._id});
+    const getTodos = await SubTodo.find({createdBy: user._id}).sort({updatedAt: -1});
+
+    // Map through todos to change _id to id
+    const todos = getTodos.map(todo => ({
+      ...todo._doc, // Spread the existing properties
+      id: todo._id, // Add id field
+      _id: undefined // Remove _id field
+    }));
 
     console.log("todos are ...........................",{todos});
 

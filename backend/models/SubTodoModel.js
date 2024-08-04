@@ -32,7 +32,7 @@ const subTodoSchema = new mongoose.Schema({
     enum: ["low", "medium", "high"],
     default: "medium",
   },
-});
+}, {timestamps: true});
 
 export const subTodo = mongoose.model("subTodo", subTodoSchema);
 

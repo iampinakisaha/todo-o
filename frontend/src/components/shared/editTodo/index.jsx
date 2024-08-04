@@ -54,34 +54,30 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 import CustomDatePicker from "@/lib/datePicker";
 import { Button } from "@/components/ui/button";
 import { ChromePicker } from "react-color";
 import { toast } from "sonner";
 import apiClient from "@/lib/apiClient";
-import { ADD_SUBTODO_ROUTE } from "@/utils/constants";
+import { UPDATE_SUBTODO_ROUTE } from "@/utils/constants";
 import useAppStore from "@/store";
-const SidebarAddTask = () => {
+
+
+const EditTodo = ({todoId = "", onClose}) => {
+  const [Id, setId] = useState("")
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [dueDate, setDueDate] = useState(null);
   const [priority, setPriority] = useState("");
   const [color, setColor] = useState("");
-  const [openAddTask, setOpenAddTask] = useState(false);
-  const {selectedFunction, setSelectedFunction} = useAppStore();
-  const { subTodo, setSubTodo, addSubTodo } = useAppStore();
-
+  const [taskLabel, setTaskLabel] = useState("");
+  const { selectedTodoDetails, updateSubTodo } = useAppStore();
+  const { isActiveTodoSidebar } = useAppStore();
   const [openInbox, setOpenInbox] = useState(false);
   const dropdownRef = useRef(null);
   const commandRef = useRef(null);
-
+  // const [todoDetails, setTodoDetails] = useState("");
 
 
   const handleDueDateChange = (date) => {
@@ -100,30 +96,45 @@ const SidebarAddTask = () => {
     return true;
   };
 
-  const handleAddTodo = async () => {
+  useEffect (() => {
+    const todoDetails = selectedTodoDetails(todoId);
+    setId(todoDetails.id);
+    setTaskName(todoDetails.title || "");
+    setTaskDescription(todoDetails.content || "");
+    setDueDate(todoDetails.dueDate || null);
+    setPriority(todoDetails.priority || "");
+    setColor(todoDetails.color || "");
+
+  },[todoId, selectedTodoDetails])
+
+
+
+  const handleUpdateTodo = async () => {
     if (validateFormData()) {
       try {
+        
         const todoData = {
-          title: taskName,
-          content: taskDescription || undefined,
-          dueDate: dueDate || undefined,
-          priority: priority || undefined,
-          color: color || undefined,
+          id: Id,
+          title: taskName || null, // Use null for empty fields
+          content: taskDescription || null,
+          dueDate: dueDate || null,
+          priority: priority || null,
+          color: color || null,
         };
 
-        const response = await apiClient.post(ADD_SUBTODO_ROUTE, todoData, {
+        const response = await apiClient.post(UPDATE_SUBTODO_ROUTE, todoData, {
           withCredentials: true,
         });
-        console.log("added task",response.data)
+        
         if (response.status === 201 && response.data) {
-          addSubTodo(response.data);
-          setOpenAddTask(false);
-          toast.success("Todo added successfully.");
+          updateSubTodo(response.data);
+         onClose();
+          toast.success("Todo Updated successfully.");
         } else {
-          toast.error("Error occured while adding new Task.");
+          toast.error("Error occured while updating new Task.");
         }
       } catch (error) {
-        toast.error("Error occured while adding new Task.");
+        toast.error("Error occured while updating new Task.");
       }
     }
   };
@@ -151,26 +162,10 @@ const SidebarAddTask = () => {
   }, []);
 
   return (
-    <div className="relative h-full w-full">
-      <TooltipProvider>
-        <Tooltip>
-          <div className="h-full w-full ">
-            <TooltipTrigger className="relative    h-full  w-full ">
-              <div
-                onClick={() => {setOpenAddTask(!openAddTask); setSelectedFunction("add-todo")}}
-                className={`flex justify-start items-center gap-2 mx-3 px-2 h-full cursor-pointer ${selectedFunction === "add-todo" ? "bg-[#C5001A]/10 shadow-md text-red-400 rounded-md" : "text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50"}`}
-              >
-                <div className="bg-[#C5001A]/90 rounded-full p-[2px]">
-                  <FaPlus className="text-white" />
-                </div>
-                <div className="text-[#C5001A] font-semibold text-sm">
-                  Add Task
-                </div>
-              </div>
-            </TooltipTrigger>
-            {openAddTask && (
-              <div className="absolute z-50 h-screen w-screen flex justify-center  ">
-                <Card className="w-[95%] md:w-[60%] flex flex-col h-[40vh]  bg-white bottom-0">
+    <div className={`absolute h-screen w-screen ${isActiveTodoSidebar && "md:w-[calc(100vw-288px)]"}`}>
+
+      <div className="flex justify-center items-center h-full w-full bg-black/5">
+      <Card className="w-[95%] md:w-[60%] flex flex-col h-[40vh]  bg-white shadow-md bottom-0">
                   <CardHeader>
                     <CardTitle>
                       <input
@@ -199,6 +194,8 @@ const SidebarAddTask = () => {
                       <CustomDatePicker
                         dateReturn={handleDueDateChange}
                         name={"Due Date"}
+                        value = {dueDate}
+
                       />
                     </div>
 
@@ -381,9 +378,7 @@ const SidebarAddTask = () => {
                                 Are you absolutely sure?
                               </AlertDialogTitle>
                               <AlertDialogDescription>
-                                This action cannot be undone. This will
-                                permanently delete your account and remove your
-                                data from our servers.
+                                
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
@@ -391,37 +386,31 @@ const SidebarAddTask = () => {
                                 Cancel
                               </AlertDialogCancel>
                               <AlertDialogAction
-                                onClick={() => setOpenAddTask(false)}
+                                onClick={onClose}
                                 className="bg-[#C5001A] hover:bg-[#A80015]/90  text-white active:scale-95 transition-all duration-300 cursor-pointer p-1 px-3 h-8 rounded-md"
                               >
                                 Discard
                               </AlertDialogAction>
                             </AlertDialogFooter>
-                          </AlertDialogContent>
+                          </AlertDialogContent> 
                         </AlertDialog>
                       </div>
 
                       <div>
                         <Button
-                          onClick={handleAddTodo}
+                          onClick={handleUpdateTodo}
                           className="bg-[#C5001A] hover:bg-[#A80015]/90  text-white active:scale-95 transition-all duration-300 cursor-pointer p-1 px-3 h-8 rounded-md"
                         >
-                          Add Task
+                          Update
                         </Button>
                       </div>
                     </div>
                   </CardFooter>
                 </Card>
-              </div>
-            )}
-          </div>
-          <TooltipContent className="bg-black text-white">
-            <p>Add Task</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      </div>
+        
     </div>
-  );
-};
+  )
+}
 
-export default SidebarAddTask;
+export default EditTodo

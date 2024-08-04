@@ -1,25 +1,25 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { addDays, format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
+import * as React from "react";
+import { addDays, format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
-const CustomDatePicker = ({ dateReturn, name }) => {
+const CustomDatePicker = ({ dateReturn = "", name = "", value = "" }) => {
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
   const currentDay = new Date().getDate();
@@ -44,7 +44,11 @@ const CustomDatePicker = ({ dateReturn, name }) => {
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>{name ? name : "Date"}</span>}
+          {date ? (
+            format(date, "PPP")
+          ) : (
+            <span>{value ? format(value, "PPP") : name ? name : "Date"}</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="flex w-auto flex-col space-y-2 p-2">
@@ -74,7 +78,7 @@ const CustomDatePicker = ({ dateReturn, name }) => {
         </div>
       </PopoverContent>
     </Popover>
-  )
+  );
 };
 
 export default CustomDatePicker;
