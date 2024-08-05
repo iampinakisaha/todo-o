@@ -1,4 +1,4 @@
-import Dashboard from "@/components/custom/Dashboard";
+
 import FilterAndLabel from "@/components/custom/Sidebar/Content/filter&Label";
 import Inbox from "@/components/custom/Sidebar/Content/inbox";
 import Search from "@/components/custom/Sidebar/Content/search";
@@ -10,7 +10,8 @@ import Home from "@/pages/Home";
 import Profile from "@/pages/Profile";
 import Todo from "@/pages/Todo";
 import useAppStore from "@/store";
-import { createRoot } from "react-dom/client";
+import LoadingSpinner from "@/utils/loadingSpinner/LoadingSpinner";
+
 import {
   createBrowserRouter,
   Route,
@@ -45,7 +46,7 @@ export const router = createBrowserRouter(
         <Route path="upcoming" element={<Upcoming />} />
         <Route path="filter&labels" element={<FilterAndLabel />} />
       </Route>
-      <Route path="/test" element={<CustomDatePicker />} />
+      <Route path="/test" element={<LoadingSpinner />} />
       <Route path="*" element={<Navigate to="/auth" />} />
     </>
   )

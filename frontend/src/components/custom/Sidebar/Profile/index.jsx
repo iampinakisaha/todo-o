@@ -1,12 +1,6 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { TbLogout } from "react-icons/tb";
+
 import {
   Tooltip,
   TooltipContent,
@@ -22,9 +16,14 @@ import { GoBell } from "react-icons/go";
 import { LuPanelLeft } from "react-icons/lu";
 
 import { PiBellThin } from "react-icons/pi";
+import apiClient from "@/lib/apiClient";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { LOGOUT_ROUTE } from "@/utils/constants";
 const SidebarProfile = () => {
-  const { userInfo, isActiveTodoSidebar, setIsActiveTodoSidebar } =
+  const { userInfo,setUserInfo, isActiveTodoSidebar, setIsActiveTodoSidebar } =
     useAppStore();
+    const navigate = useNavigate();
   const [isClickedProfile, setIsClickedProfile] = useState(false);
   const menuRef = useRef(null);
   const avatarRef = useRef(null);
@@ -40,6 +39,22 @@ const SidebarProfile = () => {
       setIsClickedProfile(false);
     }
   };
+
+  const handleOnLogOut = async () => {
+    try {
+      const response = await apiClient.get(LOGOUT_ROUTE, {withCredentials: true});
+
+      if(response.status === 201) {
+        toast.success("Logged out Successfully.")
+        setUserInfo("");
+        navigate("/auth");
+
+      }
+    }catch(error) {
+      console.log(error)
+      toast.error("There is an error while logging out.")
+    }
+  }
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -165,8 +180,10 @@ const SidebarProfile = () => {
 
                     <div className="flex w-full p-2">
                         <div className="p-2 rounded-md flex flex-col w-full hover:bg-slate-200/50 cursor-pointer">
-                            <div className="text-sm">
-                              Logout
+                              
+                            <div onClick={handleOnLogOut} className="ml-2 flex justify-start items-center gap-2 active:scale-95 transition-all duration-300 ease-in-out">
+                           <span className="text-xl text-[#C5001A]"> <TbLogout /> </span>
+                           <span className="text-md text-[#C5001A]">Logout</span>
                             </div>
                         </div>
                     </div>

@@ -4,6 +4,7 @@ import logInController from "../controllers/user/LogInController.js";
 import getUserInfoController from "../controllers/user/GetUserInfoController.js";
 import { verifyToken } from "../middleware/AuthMiddleware.js";
 import updateUserInfoController, { updateUserProfileImageController } from "../controllers/user/UpdateUserInfoController.js";
+import logoutController from "../controllers/user/LogoutController.js";
 
 
 const authRoutes = Router ();
@@ -13,5 +14,6 @@ authRoutes.post("/login", logInController);
 authRoutes.get("/get-user-info",verifyToken, getUserInfoController);
 authRoutes.post("/update-user-info",verifyToken, updateUserInfoController);
 authRoutes.post("/update-user-profile-image",verifyToken, updateUserProfileImageController);
+authRoutes.get("/logout",verifyToken, logoutController);
 
 export default authRoutes;

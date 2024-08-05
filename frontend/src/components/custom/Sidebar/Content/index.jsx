@@ -8,8 +8,8 @@ import { HiMiniInbox } from "react-icons/hi2";
 import { MdUpcoming } from "react-icons/md";
 import { MdFilterCenterFocus } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import Dashboard from "../../Dashboard";
 import useAppStore from "@/store";
+import TooltipWrapper from "@/lib/wrapper/tooltipWrapper/TooltipWrapper";
 
 
 const SidebarContent = () => {
@@ -24,6 +24,7 @@ const SidebarContent = () => {
         {/* inbox section- start */}
         <div className="flex flex-col mb-4 gap-2">
           {/* search - start */}
+          <TooltipWrapper displayText="Search" contentClassname="bg-black text-white"> 
           <NavLink to={"/todo/search"} onClick={() => setSelectedFunction("search")}
             className={`h-[34px] p-[2px] grid grid-cols-10 cursor-pointer  ${selectedFunction === "search" ? "bg-[#C5001A]/10 shadow-md text-red-400 rounded-md" : "text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50"}`}>
             <div  className="col-span-9 flex justify-start items-center gap-2 px-2 ">
@@ -34,9 +35,11 @@ const SidebarContent = () => {
             </div>
             <div className=" col-span-1"></div>
           </NavLink>
+          </TooltipWrapper>
           {/* start -  end */}
 
           {/* inbox - start */}
+          <TooltipWrapper displayText="Inbox" contentClassname="bg-black text-white"> 
           <NavLink to={"/todo/inbox"}  onClick={() => {setSelectedFunction("inbox"); setGetSubTodo(true)}}
             className={`h-[34px] p-[2px] grid grid-cols-10 cursor-pointer ${selectedFunction === "inbox" ? "bg-[#C5001A]/10 shadow-md text-red-400 rounded-md" : "text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50"}`}>
             <div  className="col-span-9 flex justify-start items-center gap-2 px-2 ">
@@ -47,9 +50,11 @@ const SidebarContent = () => {
             </div>
             <div className="col-span-1"></div>
           </NavLink>
+          </TooltipWrapper>
           {/* inbox -  end */}
 
           {/* today - start */}
+          <TooltipWrapper displayText="Today" contentClassname="bg-black text-white"> 
           <NavLink to={"/todo/today"}   onClick={() => setSelectedFunction("today")}
             className={`h-[34px] p-[2px] grid grid-cols-10 cursor-pointer ${selectedFunction === "today" ? "bg-[#C5001A]/10 shadow-md text-red-400 rounded-md" : "text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50"}`}>
             <div  className="col-span-9 flex justify-start items-center gap-2 px-2 ">
@@ -60,9 +65,11 @@ const SidebarContent = () => {
             </div>
             <div className="col-span-1"></div>
           </NavLink>
+          </TooltipWrapper>
           {/* today -  end */}
 
           {/* upcoming - start */}
+          <TooltipWrapper displayText="Upcoming" contentClassname="bg-black text-white"> 
           <NavLink to={"/todo/upcoming"}   onClick={() => setSelectedFunction("upcoming")}
             className={`h-[34px] p-[2px] grid grid-cols-10 cursor-pointer ${selectedFunction === "upcoming" ? "bg-[#C5001A]/10 shadow-md text-red-400 rounded-md" : "text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50"}`}>
             <div  className="col-span-9 flex justify-start items-center gap-2 px-2 ">
@@ -73,9 +80,11 @@ const SidebarContent = () => {
             </div>
             <div className="col-span-1"></div>
           </NavLink>
+          </TooltipWrapper>
           {/* upcoming -  end */}
 
           {/* filter & labels - start */}
+          <TooltipWrapper displayText="Filter & Labels" contentClassname="bg-black text-white"> 
           <NavLink to={"/todo/filter&labels"}   onClick={() => setSelectedFunction("filter&label")}
             className={`h-[34px] p-[2px] grid grid-cols-10 cursor-pointer ${selectedFunction === "filter&label" ? "bg-[#C5001A]/10 shadow-md text-red-400 rounded-md" : "text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50"}`}>
             <div  className="col-span-9 flex justify-start items-center gap-2 px-2 ">
@@ -86,12 +95,14 @@ const SidebarContent = () => {
             </div>
             <div className="col-span-1"></div>
           </NavLink>
+          </TooltipWrapper>
           {/* filter & labels -  end */}
         </div>
         {/* inbox section- end */}
 
         {/* project section- start */}
         <div className="relative flex-grow ">
+        <TooltipWrapper displayText="Projects" contentClassname="bg-black text-white" triggerClassname="w-full"> 
           <div onClick={() => setSelectedFunction("myproject")} className={`h-[34px] p-[2px] grid grid-cols-10 cursor-pointer ${selectedFunction === "myproject" ? "bg-[#C5001A]/10 shadow-md text-red-400  rounded-md" : "text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50"}`}>
             <div className=" col-span-8 flex justify-start items-center gap-2 px-2">
               <h3>My Projects</h3>
@@ -111,7 +122,7 @@ const SidebarContent = () => {
               )}
             </div>
           </div>
-
+          </TooltipWrapper>
           <div
             className={`scroolbar-none ${
               !isActiveProjectList ? "hidden" : "block"

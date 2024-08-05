@@ -18,6 +18,7 @@ import { IoFlag } from "react-icons/io5";
 import SidebarAddTask from "../../AddTask";
 import EditTodo from "@/components/shared/editTodo";
 import { toast } from "sonner";
+import TooltipWrapper from "@/lib/wrapper/tooltipWrapper/TooltipWrapper";
 
 const Inbox = () => {
   const { subTodo, setSubTodo, getSubTodo, setGetSubTodo } = useAppStore();
@@ -30,7 +31,7 @@ const Inbox = () => {
         const response = await apiClient.get(GET_SUBTODO_ROUTE, {
           withCredentials: true,
         });
-        
+
         if (response.status === 201 && response.data) {
           setSubTodo(response.data.todos);
         }
@@ -46,19 +47,22 @@ const Inbox = () => {
   }, [subTodo, setSubTodo]);
 
   const handleMarkIsComplete = async (id) => {
-   
     try {
-      const response = await apiClient.post(DELETE_SUBTODO_ROUTE, {id}, {withCredentials: true});
+      const response = await apiClient.post(
+        DELETE_SUBTODO_ROUTE,
+        { id },
+        { withCredentials: true }
+      );
 
       if (response.status === 201 && response.data) {
-        toast.success("Task marked as completed")
-        removeSubTodo(response.data.id)
-      }else{
-        toast.error("An error has occured, Please try again later.")
+        toast.success("Task marked as completed");
+        removeSubTodo(response.data.id);
+      } else {
+        toast.error("An error has occured, Please try again later.");
       }
-    }catch (error) {
-      console.log(error)
-      toast.error("An error has occured, Please try again later.")
+    } catch (error) {
+      console.log(error);
+      toast.error("An error has occured, Please try again later.");
     }
   };
 
@@ -69,7 +73,7 @@ const Inbox = () => {
 
   return (
     <div
-      className={`bg-white h-screen w-screen relative ${
+      className={`bg-white h-screen w-screen  relative  ${
         isActiveTodoSidebar && "md:w-[calc(100vw-288px)]"
       }`}
     >
@@ -121,7 +125,7 @@ const Inbox = () => {
         {/* head section end */}
 
         {/* main dashboard- start */}
-        <section className=" bg-white flex-grow relative overflow-y-auto scroolbar-none">
+        <section className=" bg-white flex-grow  relative overflow-y-auto scroolbar-none">
           <div className="flex flex-col px-11 pb-14 w-full ">
             <div className=" flex flex-col h-full gap-1 justify-center items-center">
               {/* each todo- start */}
@@ -199,18 +203,19 @@ const Inbox = () => {
                             <div className="flex absolute h-full pl-6 justify-left items-center">
                               <Checkbox
                                 id="isComplete"
-                                onClick={()=>handleMarkIsComplete(todo.id)}
+                                onClick={() => handleMarkIsComplete(todo.id)}
                                 className={`rounded-full border-blue-500 mr-2`}
                                 style={{ backgroundColor: todo.color }}
                               />
                             </div>
-                            
                           </div>
                           {/* move tool- end */}
 
                           {/* settings- start */}
                           <div className="flex gap-1 justify-center items-start text-xl text-[#002C54]/50 ">
                             {/* edit todo start */}
+                            <div id="edit">
+                            <TooltipWrapper displayText="Edit Task" contentClassname="bg-black text-white">
                             <div
                               onClick={() => {
                                 handleEditTodo(todo?.id);
@@ -219,16 +224,24 @@ const Inbox = () => {
                             >
                               <FiEdit3 />
                             </div>
+                            </TooltipWrapper>
+                              </div>
                             {/* edit todo end */}
+                            <TooltipWrapper displayText="Set Due Date" contentClassname="bg-black text-white"> 
                             <div className="flex p-1 hover:bg-slate-200/50 rounded-md active:scale-90 transition-all duration-300 shadow-md">
                               <MdOutlineDateRange />
                             </div>
+                            </TooltipWrapper>
+                            <TooltipWrapper displayText="Add Comment" contentClassname="bg-black text-white"> 
                             <div className="flex p-1 hover:bg-slate-200/50 rounded-md active:scale-90 transition-all duration-300 shadow-md">
                               <GoComment />
                             </div>
+                            </TooltipWrapper>
+                            <TooltipWrapper displayText="More Task Actions..." contentClassname="bg-black text-white"> 
                             <div className="flex p-1 hover:bg-slate-200/50 rounded-md active:scale-90 transition-all duration-300 shadow-md">
                               <PiDotsThreeOutlineLight />
                             </div>
+                            </TooltipWrapper>
                           </div>
                           {/* settings- end */}
                         </div>
@@ -250,5 +263,7 @@ const Inbox = () => {
     </div>
   );
 };
+
+
 
 export default Inbox;

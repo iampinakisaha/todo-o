@@ -62,6 +62,7 @@ import { toast } from "sonner";
 import apiClient from "@/lib/apiClient";
 import { UPDATE_SUBTODO_ROUTE } from "@/utils/constants";
 import useAppStore from "@/store";
+import TooltipWrapper from "@/lib/wrapper/tooltipWrapper/TooltipWrapper";
 
 
 const EditTodo = ({todoId = "", onClose}) => {
@@ -98,7 +99,7 @@ const EditTodo = ({todoId = "", onClose}) => {
 
   useEffect (() => {
     const todoDetails = selectedTodoDetails(todoId);
-    setId(todoDetails.id);
+    setId(todoDetails.id || "");
     setTaskName(todoDetails.title || "");
     setTaskDescription(todoDetails.content || "");
     setDueDate(todoDetails.dueDate || null);
@@ -162,9 +163,9 @@ const EditTodo = ({todoId = "", onClose}) => {
   }, []);
 
   return (
-    <div className={`absolute h-screen w-screen ${isActiveTodoSidebar && "md:w-[calc(100vw-288px)]"}`}>
+    <div className={`absolute h-screen w-screen overflow-hidden ${isActiveTodoSidebar && "md:w-[calc(100vw-288px)]"}`}>
 
-      <div className="flex justify-center items-center h-full w-full bg-black/5">
+      <div className="flex justify-center overflow-y-scroll items-center h-full w-full bg-black/5">
       <Card className="w-[95%] md:w-[60%] flex flex-col h-[40vh]  bg-white shadow-md bottom-0">
                   <CardHeader>
                     <CardTitle>
@@ -346,11 +347,11 @@ const EditTodo = ({todoId = "", onClose}) => {
                       className={`${
                         !openInbox
                           ? "hidden"
-                          : "absolute flex h-auto w-72 top-14"
+                          : "absolute flex justify-center h-72 w-96 top-14 left-0 "
                       }`}
                     >
                       <CommandInput placeholder="Type a command or search..." />
-                      <CommandList>
+                      <CommandList className="">
                         <CommandEmpty>No results found.</CommandEmpty>
                         <CommandGroup heading="Suggestions">
                           <CommandItem>Calendar</CommandItem>
@@ -413,4 +414,7 @@ const EditTodo = ({todoId = "", onClose}) => {
   )
 }
 
-export default EditTodo
+
+
+// Export the wrapped component
+export default EditTodo;

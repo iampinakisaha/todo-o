@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import useAppStore from "./store/index.js";
 import apiClient from "./lib/apiClient.js";
 import { GET_USER_INFO } from "./utils/constants.js";
+import LoadingSpinner from "./utils/loadingSpinner/LoadingSpinner.jsx";
 
 function Main () {
   const { userInfo, setUserInfo } = useAppStore();
@@ -40,7 +41,7 @@ function Main () {
   }, [userInfo, setUserInfo]);
 
   if (loading) {
-    return <div>Loading...</div>
+    return <LoadingSpinner/>
   } 
 
   return (
