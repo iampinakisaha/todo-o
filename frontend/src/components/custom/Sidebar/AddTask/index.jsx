@@ -63,6 +63,7 @@ import apiClient from "@/lib/apiClient";
 import { ADD_SUBTODO_ROUTE } from "@/utils/constants";
 import useAppStore from "@/store";
 import TooltipWrapper from "@/lib/wrapper/tooltipWrapper/TooltipWrapper";
+import { NavLink } from "react-router-dom";
 const SidebarAddTask = () => {
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
@@ -70,8 +71,7 @@ const SidebarAddTask = () => {
   const [priority, setPriority] = useState("");
   const [color, setColor] = useState("");
   const [openAddTask, setOpenAddTask] = useState(false);
-  const { selectedFunction, setSelectedFunction } = useAppStore();
-  const { subTodo, setSubTodo, addSubTodo } = useAppStore();
+  const { subTodo, setSubTodo, addSubTodo, getSubTodoForToday } = useAppStore();
 
   const [openInbox, setOpenInbox] = useState(false);
   const dropdownRef = useRef(null);
@@ -112,6 +112,7 @@ const SidebarAddTask = () => {
           addSubTodo(response.data);
           setOpenAddTask(false);
           toast.success("Todo added successfully.");
+          getSubTodoForToday();
         } else {
           toast.error("Error occured while adding new Task.");
         }
@@ -155,13 +156,10 @@ const SidebarAddTask = () => {
             <div
               onClick={() => {
                 setOpenAddTask(!openAddTask);
-                setSelectedFunction("add-todo");
+                
               }}
-              className={`flex justify-start items-center gap-2 mx-3 px-2 h-full cursor-pointer ${
-                selectedFunction === "add-todo"
-                  ? "bg-[#C5001A]/10 shadow-md text-red-400 rounded-md"
-                  : "text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50"
-              }`}
+              className={`flex justify-start items-center gap-2 mx-3 px-2 h-full cursor-pointer text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50 `}
+              
             >
               <div className="bg-[#C5001A]/90 rounded-full p-[2px]">
                 <FaPlus className="text-white" />

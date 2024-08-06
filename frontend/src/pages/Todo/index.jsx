@@ -1,18 +1,45 @@
-
+import { useLoaderData } from "react-router-dom";
 import Sidebar from "@/components/custom/Sidebar";
 import useAppStore from "@/store";
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { format } from "date-fns";
 
 const Todo = () => {
-  const { userInfo } = useAppStore();
+  const { userInfo, setSubTodo, subTodo , setSubTodoToday } = useAppStore();
+  const todoData = useLoaderData(); // Ensure this is correctly used
+  
+
+  useEffect(() => {
+    if (todoData && todoData.data && todoData.data.todos) {
+      console.log("data from loader", todoData.data.todos);
+      setSubTodo(todoData.data.todos);
+
+      const today = new Date();
+
+      const todoToday = todoData.data.todos.filter((item) => {
+      const dueDate = new Date(item.dueDate);
+      if (isNaN(dueDate.getTime())) {
+        return false;
+      }
+
+      return format(dueDate, "PPP") === format(today, "PPP");
+    });
+
+    setSubTodoToday(todoToday)
+    }
+  }, [todoData, setSubTodo]);
+ 
+  
   const navigate = useNavigate();
   const { isActiveTodoSidebar } = useAppStore();
   useEffect(() => {
+    
     if (!userInfo.profileSetup) {
       toast("Please setup profile to continue.");
       navigate("/profile");
+      
     }
   }, [userInfo, navigate]);
   return (

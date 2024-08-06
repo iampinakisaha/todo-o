@@ -1,9 +1,13 @@
+import { format } from "date-fns";
+
 export const useSubTodoSlice = (set, get) => ({
   getSubTodo: false,
   subTodo: [],
+  subTodoToday: [],
   setSubTodo: (subTodo) => set({ subTodo }),
   setGetSubTodo: (getSubTodo) => set({ getSubTodo }),
-
+  setSubTodoToday: (subTodoToday) => set({ subTodoToday }),
+ 
   addSubTodo: (todo) => {
     const subTodo = get().subTodo;
 
@@ -41,14 +45,32 @@ export const useSubTodoSlice = (set, get) => ({
   removeSubTodo: (todoId) => {
     const todos = get().subTodo;
     // Filter out the todo with the matching id
-  const updatedTodos = todos.filter((item) => item.id !== todoId);
+    const updatedTodos = todos.filter((item) => item.id !== todoId);
 
-  // Sort the updatedTodos array by updatedAt field in descending order
-  const sortedTodos = updatedTodos.sort(
-    (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-  );
+    // Sort the updatedTodos array by updatedAt field in descending order
+    const sortedTodos = updatedTodos.sort(
+      (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+    );
 
-  set({ subTodo: sortedTodos });
-  console.log(sortedTodos)
-  }
+    set({ subTodo: sortedTodos });
+    console.log(sortedTodos);
+  },
+  getSubTodoForToday: () => {
+    const subTodo = get().subTodo;
+    
+    const today = new Date();
+
+      const todos = subTodo.filter((item) => {
+      const dueDate = new Date(item.dueDate);
+      if (isNaN(dueDate.getTime())) {
+        return false;
+      }
+
+      return format(dueDate, "PPP") === format(today, "PPP");
+    });
+
+    set({ subTodoToday: todos });
+    console.log("Filtered Todos:", todos);
+    return todos
+  },
 });

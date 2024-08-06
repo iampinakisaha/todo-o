@@ -45,10 +45,12 @@ function Main () {
   } 
 
   return (
-    <React.StrictMode>
-    <RouterProvider router={router} />
-    <Toaster closeButton />
-  </React.StrictMode>
+    // <React.StrictMode>
+   <>
+     <RouterProvider router={router} />
+     <Toaster closeButton />
+   </>
+  // </React.StrictMode>
   )
 }
 

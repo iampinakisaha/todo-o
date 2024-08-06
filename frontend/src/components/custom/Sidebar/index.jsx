@@ -5,7 +5,7 @@ import SidebarAddTask from './AddTask';
 import SidebarContent from './Content';
 
 const Sidebar = () => {
-  const {isActiveTodoSidebar,setIsActiveTodoSidebar} = useAppStore();
+  const {isActiveTodoSidebar} = useAppStore();
   return (
 
     <>

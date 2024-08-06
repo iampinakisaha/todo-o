@@ -6,7 +6,7 @@ import { IoSearch } from 'react-icons/io5';
 import { NavLink } from 'react-router-dom';
 
 const SidebarFooter = () => {
-  const {selectedFunction, setSelectedFunction} = useAppStore();
+ 
   return (
     <div className="flex flex-col h-full w-full">
      <div className="flex flex-col h-full w-full">
@@ -16,7 +16,7 @@ const SidebarFooter = () => {
           {/* search - start */}
           <TooltipWrapper displayText="Add a Team" contentClassname="bg-black text-white"> 
           <div  onClick={() => setSelectedFunction("add-team")}
-            className={`h-[34px] p-[2px] grid grid-cols-10 cursor-pointer ${selectedFunction === "add-team" ? "bg-[#C5001A]/10 shadow-md text-red-400 rounded-md" : "text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50"}`}>
+            className={`h-[34px] p-[2px] grid grid-cols-10 cursor-pointer text-[#002C54] hover:shadow-md rounded-md hover:bg-slate-200/50 `}>
             <div  className="col-span-9 flex justify-start items-center gap-2 px-2 ">
               <span className=' text-[#002C54]/80 text-sm scale-85'>
               <FaPlus />

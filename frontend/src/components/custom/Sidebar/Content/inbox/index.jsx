@@ -19,10 +19,10 @@ import SidebarAddTask from "../../AddTask";
 import EditTodo from "@/components/shared/editTodo";
 import { toast } from "sonner";
 import TooltipWrapper from "@/lib/wrapper/tooltipWrapper/TooltipWrapper";
+import AddTodo from "@/components/shared/addTodo";
 
 const Inbox = () => {
-  const { subTodo, setSubTodo, getSubTodo, setGetSubTodo } = useAppStore();
-  const { isActiveTodoSidebar, removeSubTodo } = useAppStore();
+  const { subTodo, setSubTodo, getSubTodo, setGetSubTodo, isActiveTodoSidebar, removeSubTodo, getSubTodoForToday } = useAppStore();
   const [isOpenEditTodo, setIsOpenEditTodo] = useState(false);
   const [editTodo, setEditTodo] = useState("");
   useEffect(() => {
@@ -34,6 +34,7 @@ const Inbox = () => {
 
         if (response.status === 201 && response.data) {
           setSubTodo(response.data.todos);
+          
         }
       } catch (error) {
         console.log(error);
@@ -43,6 +44,8 @@ const Inbox = () => {
     if (getSubTodo) {
       getAllSubTodos();
       setGetSubTodo(false);
+      
+
     }
   }, [subTodo, setSubTodo]);
 
@@ -253,7 +256,15 @@ const Inbox = () => {
 
               {/* each todo- end */}
             </div>
+
+            <div className="flex flex-col h-full w-full gap-1 justify-center items-center">
+                <div className="flex justify-center w-full items-center">
+                <AddTodo classname="justify-center"/>
+                </div>
+            </div>
           </div>
+
+          
         </section>
         {/* main dashboard- end */}
         {isOpenEditTodo && (
