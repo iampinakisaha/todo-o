@@ -1,0 +1,36 @@
+/* Add these styles to your CSS file or within a <style> tag */
+.day-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.day-item.selected {
+  background-color: #f0f8ff; /* Light blue for selected items */
+  border-left: 3px solid #007bff; /* Blue border for selected item */
+}
+
+.day-item.past-date {
+  color: #aaa; /* Gray color for past dates */
+  cursor: not-allowed;
+}
+
+.day-nav-item {
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.day-nav-item.bg-blue-500 {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.day-nav-item.bg-red-200 {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.day-container::-webkit-scrollbar {
+  display: none;
+}

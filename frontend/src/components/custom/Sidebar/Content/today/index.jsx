@@ -20,9 +20,9 @@ const Today = () => {
 
   return (
     <div
-      className={`bg-white h-screen w-screen  relative  ${
-        isActiveTodoSidebar && "md:w-[calc(100vw-288px)]"
-      }`}
+    className={`bg-white h-screen w-screen  relative  ${
+      isActiveTodoSidebar && "md:w-[calc(100vw-288px)]"
+    }`}
     >
       <div className="flex flex-col h-full">
         {/* top nav bar - start */}

@@ -3,7 +3,6 @@ import Inbox from "@/components/custom/Sidebar/Content/inbox";
 import Search from "@/components/custom/Sidebar/Content/search";
 import Today from "@/components/custom/Sidebar/Content/today";
 import Upcoming from "@/components/custom/Sidebar/Content/upcoming";
-import CustomDatePicker from "@/lib/datePicker";
 import getSubTodoLoader from "@/lib/loader/GetSubTodoLoader";
 import Auth from "@/pages/Auth";
 import Home from "@/pages/Home";
@@ -11,6 +10,7 @@ import Profile from "@/pages/Profile";
 import MyProjects from "@/pages/Projects";
 import Todo from "@/pages/Todo";
 import useAppStore from "@/store";
+import Datepicker from "@/test/datepicker";
 import LoadingSpinner from "@/utils/loadingSpinner/LoadingSpinner";
 
 import {
@@ -70,7 +70,7 @@ export const router = createBrowserRouter(
         <Route path="projects" element={<MyProjects />} />
         
       </Route>
-      <Route path="/test" element={<LoadingSpinner />} />
+      <Route path="/test" element={<Datepicker />} />
       <Route path="*" element={<Navigate to="/auth" />} />
     </>
   )
