@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { MdToday } from "react-icons/md";
@@ -15,9 +15,11 @@ import TooltipWrapper from "@/lib/wrapper/tooltipWrapper/TooltipWrapper";
 const SidebarContent = () => {
   const [isActiveProjectList, setIsActiveProjectList] = useState(true);
  
-  const {userInfo, setGetSubTodo, subTodo, subTodoToday} = useAppStore();
+  const {userInfo, setGetSubTodo, subTodo, subTodoToday, getSubTodoForToday} = useAppStore();
 
- 
+ useEffect(()=> {
+  getSubTodoForToday();
+ },[subTodo])
   return (
     <div className="flex flex-col h-full w-full mt-1">
       <div className="py-1 px-3  h-96 ">

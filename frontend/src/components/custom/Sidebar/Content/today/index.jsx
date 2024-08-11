@@ -16,7 +16,7 @@ const Today = () => {
     if (userInfo) {
      getSubTodoForToday();
     }
-  }, [userInfo, getSubTodoForToday, setSubTodoToday]);
+  }, [userInfo, getSubTodoForToday, setSubTodoToday, subTodo]);
 
   return (
     <div

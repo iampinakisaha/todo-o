@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 
 const Todo = () => {
-  const { userInfo, setSubTodo, subTodo , setSubTodoToday } = useAppStore();
+  const { userInfo, setSubTodo, getSubTodoForToday, getSubTodoForUpcoming} = useAppStore();
   const todoData = useLoaderData(); // Ensure this is correctly used
   
 
@@ -27,7 +27,9 @@ const Todo = () => {
       return format(dueDate, "PPP") === format(today, "PPP");
     });
 
-    setSubTodoToday(todoToday)
+    // setSubTodoToday(todoToday)
+    getSubTodoForToday();
+    getSubTodoForUpcoming();
     }
   }, [todoData, setSubTodo]);
  

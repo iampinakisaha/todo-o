@@ -1,13 +1,15 @@
-import { format } from "date-fns";
+import { format, addDays } from "date-fns";
 
 export const useSubTodoSlice = (set, get) => ({
   getSubTodo: false,
   subTodo: [],
   subTodoToday: [],
+  subTodoUpcoming: [],
   setSubTodo: (subTodo) => set({ subTodo }),
   setGetSubTodo: (getSubTodo) => set({ getSubTodo }),
   setSubTodoToday: (subTodoToday) => set({ subTodoToday }),
- 
+  setSubTodoUpcoming: (subTodoUpcoming) => ({subTodoUpcoming}),
+
   addSubTodo: (todo) => {
     const subTodo = get().subTodo;
 
@@ -53,7 +55,7 @@ export const useSubTodoSlice = (set, get) => ({
     );
 
     set({ subTodo: sortedTodos });
-    console.log(sortedTodos);
+    
   },
   getSubTodoForToday: () => {
     const subTodo = get().subTodo;
@@ -70,7 +72,50 @@ export const useSubTodoSlice = (set, get) => ({
     });
 
     set({ subTodoToday: todos });
-    console.log("Filtered Todos:", todos);
+    
     return todos
   },
+  getSubTodoForUpcoming: () => {
+    const today = new Date();
+    const endDate = addDays(today, 365 * 2); // 2 years from today
+
+    const dates = createDateArray(today, endDate);
+    const subTodo = get().subTodo;
+
+    const upcomingTodos = []; // Initialize a new array
+
+    dates.forEach((date) => {
+      const todos = subTodo.filter((item) => {
+        const dueDate = new Date(item.dueDate);
+        if (isNaN(dueDate.getTime())) {
+          return false;
+        }
+        return format(dueDate, "PPP") === format(date, "PPP");
+      });
+
+      // Add an object with date and todos to the array
+      upcomingTodos.push({ date, todos });
+    });
+
+    // Sort the array by date
+    upcomingTodos.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    
+    // Update state with sorted data
+    set({ subTodoUpcoming: upcomingTodos });
+
+    return upcomingTodos;
+  },
+
+  
 });
+
+const createDateArray = (startDate, endDate) => {
+  const dates = [];
+  let currentDate = startDate;
+  while (currentDate <= endDate) {
+    dates.push(currentDate);
+    currentDate = addDays(currentDate, 1);
+  }
+  return dates;
+};

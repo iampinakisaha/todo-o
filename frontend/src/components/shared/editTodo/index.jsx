@@ -163,10 +163,8 @@ const EditTodo = ({todoId = "", onClose}) => {
   }, []);
 
   return (
-    <div className={`absolute h-screen w-screen overflow-hidden ${isActiveTodoSidebar && "md:w-[calc(100vw-288px)]"}`}>
-
-      <div className="flex justify-center overflow-y-scroll items-center h-full w-full bg-black/5">
-      <Card className="w-[95%] md:w-[60%] flex flex-col h-[40vh]  bg-white shadow-md bottom-0">
+    <div className={`  w-full h-full shadow-md rounded-md`}>
+      <Card className="flex flex-col  h-[40vh] ">
                   <CardHeader>
                     <CardTitle>
                       <input
@@ -408,8 +406,6 @@ const EditTodo = ({todoId = "", onClose}) => {
                     </div>
                   </CardFooter>
                 </Card>
-      </div>
-        
     </div>
   )
 }

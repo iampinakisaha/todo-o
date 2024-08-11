@@ -1,11 +1,13 @@
-/* Add these styles to your CSS file or within a <style> tag */
+
 .day-item {
   display: flex;
-  align-items: center;
+  
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
-
+.day-item > div {
+  flex-grow: 1; /* Allows items to grow */
+}
 .day-item.selected {
   background-color: #f0f8ff; /* Light blue for selected items */
   border-left: 3px solid #007bff; /* Blue border for selected item */
@@ -34,3 +36,4 @@
 .day-container::-webkit-scrollbar {
   display: none;
 }
+

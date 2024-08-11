@@ -10,7 +10,6 @@ import Profile from "@/pages/Profile";
 import MyProjects from "@/pages/Projects";
 import Todo from "@/pages/Todo";
 import useAppStore from "@/store";
-import Datepicker from "@/test/datepicker";
 import LoadingSpinner from "@/utils/loadingSpinner/LoadingSpinner";
 
 import {
@@ -70,7 +69,9 @@ export const router = createBrowserRouter(
         <Route path="projects" element={<MyProjects />} />
         
       </Route>
-      <Route path="/test" element={<Datepicker />} />
+     
+      
+      
       <Route path="*" element={<Navigate to="/auth" />} />
     </>
   )

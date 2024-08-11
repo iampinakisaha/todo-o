@@ -71,7 +71,7 @@ const AddTodo = ({classname="justify-start"}) => {
   const [priority, setPriority] = useState("");
   const [color, setColor] = useState("");
   const [openAddTask, setOpenAddTask] = useState(false);
-  const { subTodo, setSubTodo, addSubTodo, getSubTodoForToday } = useAppStore();
+  const { subTodo, setSubTodo, addSubTodo, getSubTodoForToday, getSubTodoForUpcoming } = useAppStore();
 
   const [openInbox, setOpenInbox] = useState(false);
   const dropdownRef = useRef(null);
@@ -113,6 +113,7 @@ const AddTodo = ({classname="justify-start"}) => {
           setOpenAddTask(false);
           toast.success("Todo added successfully.");
           getSubTodoForToday();
+          getSubTodoForUpcoming();
         } else {
           toast.error("Error occured while adding new Task.");
         }

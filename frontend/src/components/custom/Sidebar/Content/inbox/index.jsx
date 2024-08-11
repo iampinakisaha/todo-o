@@ -251,6 +251,8 @@ const Inbox = () => {
                       </div>
                     </div>
                     {/* hover element- end */}
+                              
+                              
                   </div>
                 ))}
 
@@ -262,15 +264,28 @@ const Inbox = () => {
                 <AddTodo classname="justify-center"/>
                 </div>
             </div>
+            
           </div>
-
+          
           
         </section>
         {/* main dashboard- end */}
-        {isOpenEditTodo && (
-          <EditTodo onClose={handleEditTodo} todoId={editTodo} />
-        )}
+        
       </div>
+      {isOpenEditTodo && (
+  <div
+    className={`fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-black bg-opacity-10 ${
+      isActiveTodoSidebar ? "md:w-[calc(100vw-288px)] ml-auto" : "w-full"
+    }`}
+  >
+    <div className="w-full max-w-[800px]">
+      <EditTodo onClose={handleEditTodo} todoId={editTodo} />
+    </div>
+  </div>
+)}
+
+
+      
     </div>
   );
 };

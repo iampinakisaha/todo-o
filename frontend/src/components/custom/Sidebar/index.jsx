@@ -10,7 +10,7 @@ const Sidebar = () => {
 
     <>
       {isActiveTodoSidebar && (
-      <div className='h-screen w-72 bg-[#FDF6F6]  shadow-2xl'>
+      <div className='h-screen w-72 bg-[#FDF6F6]  shadow-md'>
         
         <div className='flex flex-col h-screen'>
   {/* Sidebar Header Profile */}
